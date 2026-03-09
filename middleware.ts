@@ -6,9 +6,15 @@ export async function middleware(request: NextRequest) {
     request,
   })
 
+  // If Supabase env vars are not configured, skip auth middleware entirely
+  // This prevents MIDDLEWARE_INVOCATION_FAILED when env vars are missing
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return supabaseResponse
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {
