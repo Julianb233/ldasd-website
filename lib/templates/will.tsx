@@ -68,14 +68,17 @@ interface WillDocumentProps {
   data: WillData;
 }
 
-export const WillDocument: React.FC<WillDocumentProps> = ({ data }) => {
+/**
+ * Will pages without the Document wrapper — for composition with other pages.
+ */
+export const WillPages: React.FC<WillDocumentProps> = ({ data }) => {
   const today = new Date(data.date);
   const day = today.getDate();
   const month = today.toLocaleString('en-US', { month: 'long' });
   const year = today.getFullYear();
 
   return (
-    <Document>
+    <>
       {/* Page 1: Introduction and Declarations */}
       <Page size="LETTER" style={styles.page}>
         <View style={styles.header}>
@@ -372,8 +375,17 @@ export const WillDocument: React.FC<WillDocumentProps> = ({ data }) => {
           `Page ${pageNumber} of ${totalPages}`
         )} fixed />
       </Page>
-    </Document>
+    </>
   );
 };
+
+/**
+ * Complete Will document wrapped in Document — for standalone rendering.
+ */
+export const WillDocument: React.FC<WillDocumentProps> = ({ data }) => (
+  <Document>
+    <WillPages data={data} />
+  </Document>
+);
 
 export default WillDocument;
