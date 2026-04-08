@@ -68,6 +68,24 @@ const products = [
   },
 ];
 
+const addOns = [
+  {
+    name: "Attorney Consultation",
+    price: "$299",
+    description: "1-on-1 guidance from a licensed estate planning attorney in your state",
+    features: [
+      "60-minute video or phone consultation",
+      "State-licensed attorney matched to you",
+      "Document review & recommendations",
+      "Written summary of advice",
+      "Follow-up email support",
+      "Tax planning considerations",
+    ],
+    cta: "Add Consultation",
+    href: "/products/attorney-consultation",
+  },
+];
+
 const comparison = [
   {
     feature: "Last Will & Testament",
@@ -220,6 +238,73 @@ export default function ProductsPage() {
               Add your spouse or partner for an additional $100 to any plan
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Add-On: Attorney Consultation */}
+      <section className="py-24 bg-background">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center rounded-full bg-secondary/10 px-4 py-1.5 text-sm font-semibold text-secondary-dark mb-4">
+              Recommended Add-On
+            </span>
+            <h2 className="text-4xl font-bold tracking-tight text-foreground">
+              Enhance Any Plan
+            </h2>
+            <p className="mt-4 text-lg text-foreground/70">
+              Add personalized attorney guidance to your estate plan
+            </p>
+          </div>
+
+          {addOns.map((addon) => (
+            <div
+              key={addon.name}
+              className="max-w-3xl mx-auto rounded-3xl bg-white p-8 shadow-premium hover:shadow-premium-hover transition-all duration-300 ring-1 ring-secondary/20"
+            >
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">{addon.name}</h3>
+                  <p className="mt-2 text-foreground/70">{addon.description}</p>
+                  <div className="mt-4 flex items-baseline gap-2">
+                    <span className="text-4xl font-bold text-secondary">{addon.price}</span>
+                    <span className="text-sm text-foreground/60">one-time add-on</span>
+                  </div>
+                  <div className="mt-6 flex gap-3">
+                    <Link
+                      href={addon.href}
+                      className="rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white hover:bg-accent transition-all duration-300 shadow-md hover:shadow-lg"
+                    >
+                      {addon.cta}
+                    </Link>
+                    <Link
+                      href="/book?addon=attorney-consultation"
+                      className="rounded-full border-2 border-secondary/30 px-6 py-3 text-sm font-semibold text-secondary hover:bg-secondary/5 transition-all duration-300"
+                    >
+                      Book Now
+                    </Link>
+                  </div>
+                </div>
+                <ul className="space-y-3">
+                  {addon.features.map((feature) => (
+                    <li key={feature} className="flex gap-x-3">
+                      <svg
+                        className="h-6 w-5 flex-none text-secondary"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span className="text-sm text-foreground/80">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

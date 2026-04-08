@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
-    const { firstName, lastName, email, phone, state, product, addSpouse } = data;
+    const { firstName, lastName, email, phone, state, product, addSpouse, addAttorneyConsultation } = data;
 
     // Validate required fields
     if (!firstName || !lastName || !email || !phone || !state || !product) {
@@ -29,7 +29,8 @@ export async function POST(request: NextRequest) {
       'estate-plan': 699,
     };
     const basePrice = productPrices[product] || 0;
-    const totalPrice = addSpouse ? basePrice + 100 : basePrice;
+    let totalPrice = addSpouse ? basePrice + 100 : basePrice;
+    if (addAttorneyConsultation) totalPrice += 299;
 
     // TODO: Integration point for Go High Level
     console.log('Booking Submission:', {
@@ -40,6 +41,7 @@ export async function POST(request: NextRequest) {
       state,
       product,
       addSpouse: addSpouse || false,
+      addAttorneyConsultation: addAttorneyConsultation || false,
       estimatedPrice: `$${totalPrice}`,
       timestamp: new Date().toISOString(),
     });
