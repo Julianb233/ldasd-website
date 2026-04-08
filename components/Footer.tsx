@@ -104,8 +104,13 @@ export default function Footer() {
         {/* Legal Disclaimer */}
         <div className="mt-12 border-t border-white/10 pt-8">
           <p className="text-xs leading-5 text-white/50">
-            LDASD Estate Planning provides legal document preparation services. We are not a law firm and do not provide legal advice.
-            For complex estate planning needs, we recommend consulting with a licensed attorney in your state.
+            <strong className="text-white/60">Important Disclosure:</strong> LDASD Estate Planning is a document preparation
+            service. We are NOT a law firm and do NOT provide legal advice, legal representation, or legal opinions.
+            Our services are limited to preparing estate planning documents based on the information you provide.
+            We do not review your information for legal sufficiency, apply the law to the facts of your situation,
+            or provide recommendations about your legal rights. The information on this website is for general
+            educational purposes only and should not be relied upon as a substitute for professional legal advice.
+            For complex estate planning needs, we strongly recommend consulting with a licensed attorney in your state.
           </p>
         </div>
 
