@@ -86,6 +86,10 @@ const faqs = [
     q: "Do you offer refunds?",
     a: "Yes! We offer a 60-day money-back guarantee. If you're not satisfied for any reason, we'll refund you in full.",
   },
+  {
+    q: "What is the Attorney Consultation add-on?",
+    a: "For $299, you get a 60-minute 1-on-1 consultation with a licensed estate planning attorney in your state. They'll review your documents, answer questions, and provide personalized recommendations. You can add it to any plan during checkout.",
+  },
 ];
 
 export default function PricingPage() {
@@ -179,6 +183,76 @@ export default function PricingPage() {
             <p className="text-sm text-foreground/50">
               60-day money-back guarantee • Free updates included • State-specific documents
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-sky">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center rounded-full bg-secondary/10 px-4 py-1.5 text-sm font-semibold text-secondary-dark mb-4">
+              Recommended Add-On
+            </span>
+            <h2 className="text-4xl font-bold text-foreground">
+              Attorney Consultation
+            </h2>
+            <p className="mt-4 text-lg text-foreground/70">
+              Add personalized legal guidance to any plan
+            </p>
+          </div>
+          <div className="rounded-3xl bg-white p-8 shadow-premium ring-1 ring-secondary/20">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-4xl font-bold text-secondary">$299</span>
+                  <span className="text-sm text-foreground/60">one-time add-on</span>
+                </div>
+                <p className="text-foreground/70 mb-6">
+                  Get a 60-minute 1-on-1 consultation with a licensed estate planning attorney
+                  in your state. Perfect for reviewing your documents, discussing complex situations,
+                  or getting personalized tax and asset protection advice.
+                </p>
+                <div className="flex gap-3">
+                  <Link
+                    href="/products/attorney-consultation"
+                    className="rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white hover:bg-accent transition-all duration-300 shadow-md"
+                  >
+                    Learn More
+                  </Link>
+                  <Link
+                    href="/book?addon=attorney-consultation"
+                    className="rounded-full border-2 border-secondary/30 px-6 py-3 text-sm font-semibold text-secondary hover:bg-secondary/5 transition-all duration-300"
+                  >
+                    Add to Your Plan
+                  </Link>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  "60-minute video or phone consultation",
+                  "Attorney licensed in your state",
+                  "Document review & recommendations",
+                  "Written summary of advice",
+                  "Follow-up email support",
+                  "Tax planning considerations",
+                ].map((feature) => (
+                  <li key={feature} className="flex gap-x-3">
+                    <svg
+                      className="h-6 w-5 flex-none text-secondary"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span className="text-sm text-foreground/80">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
