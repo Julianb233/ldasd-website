@@ -84,9 +84,9 @@ const resources = [
   },
   {
     title: "State-by-State Requirements",
-    description: "Estate planning laws and requirements for all 50 states",
-    href: "/learn/guides",
-    type: "Reference",
+    description: "Witnessing, notarization, and execution instructions for all 50 states",
+    href: "/learn/execution-instructions",
+    type: "Interactive Tool",
   },
 ];
 
