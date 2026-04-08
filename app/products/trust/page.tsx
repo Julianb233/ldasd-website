@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import LegalDisclaimer from "@/components/LegalDisclaimer";
 
 export const metadata: Metadata = {
   title: "Living Trust | Avoid Probate & Protect Your Assets | $599",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 export default function TrustPage() {
   return (
     <div className="bg-background">
+      <LegalDisclaimer />
       {/* Hero */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary to-primary-light overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

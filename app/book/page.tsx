@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import LegalDisclaimer from "@/components/LegalDisclaimer";
 
 interface FormData {
   firstName: string;
@@ -163,6 +164,7 @@ export default function BookPage() {
 
   return (
     <div className="bg-sand">
+      <LegalDisclaimer />
       <Toaster position="top-center" />
 
       {/* Hero */}
@@ -481,6 +483,8 @@ export default function BookPage() {
                         "Start Your Estate Plan"
                       )}
                     </button>
+
+                    <LegalDisclaimer variant="inline" className="mt-2" />
 
                     <p className="text-sm text-foreground/50 text-center">
                       Secure checkout. 60-day money-back guarantee. Your information is encrypted and secure.
