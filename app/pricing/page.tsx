@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import PackageComparison from "@/components/PackageComparison";
 
 export const metadata: Metadata = {
   title: "Pricing | Affordable Estate Planning Starting at $199",
@@ -62,6 +63,7 @@ const tiers = [
     cta: "Get Complete Plan",
     href: "/products/estate-plan",
     highlighted: false,
+    bundleSavings: 99,
   },
 ];
 
@@ -139,6 +141,11 @@ export default function PricingPage() {
                       one-time
                     </span>
                   </div>
+                  {'bundleSavings' in tier && tier.bundleSavings && (
+                    <p className="mt-2 text-sm font-semibold text-green-600 bg-green-50 inline-block px-3 py-1 rounded-full">
+                      Save ${tier.bundleSavings} vs. buying separately
+                    </p>
+                  )}
                 </div>
 
                 <Link
@@ -176,7 +183,26 @@ export default function PricingPage() {
             ))}
           </div>
 
-          <div className="mt-16 text-center">
+          {/* Bundle Savings Callout */}
+          <div className="mt-16 bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-8 border border-green-200">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <h3 className="text-xl font-bold text-foreground">Bundle & Save with the Complete Plan</h3>
+                <p className="text-foreground/70 mt-2">
+                  Get all documents — will, trust, power of attorney, healthcare directive, and more — for <span className="font-semibold text-green-700">$99 less</span> than buying separately.
+                  Plus lifetime free updates and priority phone support.
+                </p>
+              </div>
+              <Link
+                href="/products/estate-plan"
+                className="flex-shrink-0 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white hover:bg-primary/90 transition-all shadow-md"
+              >
+                Get the Bundle — $699
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center">
             <p className="text-lg text-foreground/70 mb-4">
               Add your spouse or partner to any plan for +$100
             </p>
@@ -184,6 +210,24 @@ export default function PricingPage() {
               60-day money-back guarantee • Free updates included • State-specific documents
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Package Comparison Table */}
+      <section className="py-24 bg-sky">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary mb-4">
+              Compare Plans
+            </span>
+            <h2 className="text-4xl font-bold text-foreground">
+              See What&apos;s Included
+            </h2>
+            <p className="mt-4 text-lg text-foreground/70">
+              Every plan includes attorney-reviewed, state-specific documents
+            </p>
+          </div>
+          <PackageComparison />
         </div>
       </section>
 
