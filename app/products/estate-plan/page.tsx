@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import LegalDisclaimer from "@/components/LegalDisclaimer";
 
 export const metadata: Metadata = {
   title: "Complete Estate Plan | Trust, Will, POA & Healthcare Directive | $699",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function EstatePlanPage() {
   return (
     <div className="bg-background">
+      <LegalDisclaimer />
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary to-primary-light overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-secondary/20 blur-[120px]" />

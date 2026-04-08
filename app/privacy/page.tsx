@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | LDASD Financial Services",
-  description: "Privacy policy for LDASD Financial Services Learn how we collect, use, and protect your personal information.",
+  title: "Privacy Policy | LDASD Estate Planning",
+  description: "Privacy policy for LDASD Estate Planning. Learn how we collect, use, and protect your personal information.",
 };
 
 export default function PrivacyPage() {
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
             Privacy Policy
           </h1>
           <p className="text-xl text-foreground/80">
-            Last updated: December 2024
+            Last updated: April 2026
           </p>
         </div>
       </section>
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-4">Introduction</h2>
               <p>
-                LDASD Financial Services (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) respects your privacy and is committed
+                LDASD Estate Planning (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) respects your privacy and is committed
                 to protecting your personal information. This Privacy Policy explains how we collect, use,
                 disclose, and safeguard your information when you visit our website or use our services.
               </p>
@@ -111,7 +111,7 @@ export default function PrivacyPage() {
                 If you have questions about this Privacy Policy, please contact us at:
               </p>
               <div className="mt-4 p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-premium">
-                <p className="font-semibold text-foreground">LDASD Financial Services</p>
+                <p className="font-semibold text-foreground">LDASD Estate Planning</p>
                 <p>12544 High Bluff Drive, Suite 200</p>
                 <p>San Diego, California 92130</p>
                 <p className="mt-2">Phone: (858) 750-6206</p>
