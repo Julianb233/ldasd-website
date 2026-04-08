@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SchemaMarkup from "@/components/SchemaMarkup";
+import AnalyticsProvider from "@/components/AnalyticsProvider";
 
 export const metadata: Metadata = {
   title: "LDASD Estate Planning | Affordable Trusts & Wills",
@@ -17,10 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased min-h-screen flex flex-col">
-        <SchemaMarkup />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AnalyticsProvider>
+          <SchemaMarkup />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AnalyticsProvider>
       </body>
     </html>
   );

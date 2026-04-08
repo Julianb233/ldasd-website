@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useFunnelTracking } from "@/lib/analytics/hooks";
 
 interface FormData {
   firstName: string;
@@ -101,11 +102,24 @@ export default function BookPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { trackStep } = useFunnelTracking();
+  const formStartTracked = useRef(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
+
+    // Track form_started on first field interaction
+    if (!formStartTracked.current) {
+      formStartTracked.current = true;
+      const selectedProduct = products.find((p) => p.id === formData.product);
+      trackStep("form_started", {
+        product: formData.product || undefined,
+        value: selectedProduct?.price,
+      });
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
@@ -113,6 +127,11 @@ export default function BookPage() {
   };
 
   const handleProductSelect = (productId: string) => {
+    const product = products.find((p) => p.id === productId);
+    trackStep("product_selected", {
+      product: productId,
+      value: product?.price,
+    });
     setFormData((prev) => ({ ...prev, product: productId }));
   };
 
@@ -146,6 +165,17 @@ export default function BookPage() {
       if (!response.ok) {
         throw new Error(result.error || "Failed to submit form");
       }
+
+      const selectedProduct = getSelectedProduct();
+      trackStep("form_completed", {
+        product: formData.product,
+        value: getTotalPrice(),
+        metadata: {
+          state: formData.state,
+          addSpouse: formData.addSpouse,
+          productName: selectedProduct?.name || "",
+        },
+      });
 
       setIsSubmitted(true);
       toast.success("Request submitted successfully!");
