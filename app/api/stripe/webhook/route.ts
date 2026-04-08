@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       case 'customer.subscription.created': {
         const subscription = event.data.object as unknown as StripeSubscriptionData
         const userId = subscription.metadata.user_id
-        const planType = (subscription.metadata.plan_type || 'individual') as PlanType
+        const planType = (subscription.metadata.plan_type || 'will') as PlanType
 
         if (!userId) {
           console.error('No user_id in subscription metadata')

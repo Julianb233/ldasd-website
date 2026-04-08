@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS public.subscriptions (
   user_id UUID NOT NULL REFERENCES auth.users ON DELETE CASCADE,
   stripe_subscription_id TEXT UNIQUE,
   stripe_customer_id TEXT,
-  plan_type TEXT NOT NULL CHECK (plan_type IN ('individual', 'couples', 'family')),
+  plan_type TEXT NOT NULL CHECK (plan_type IN ('will', 'trust', 'estate-plan')),
   status TEXT NOT NULL DEFAULT 'trialing' CHECK (status IN ('trialing', 'active', 'past_due', 'canceled', 'unpaid', 'incomplete')),
   trial_start TIMESTAMPTZ,
   trial_end TIMESTAMPTZ,

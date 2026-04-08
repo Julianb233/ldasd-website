@@ -19,41 +19,44 @@ export function getStripe(): Stripe {
 // Re-export for backwards compatibility — lazy getter
 export const stripe = new Proxy({} as Stripe, {
   get(_target, prop) {
-    return (getStripe() as Record<string | symbol, unknown>)[prop]
+    return (getStripe() as unknown as Record<string | symbol, unknown>)[prop]
   },
 })
 
-// Subscription plan configuration
+// Subscription plan configuration (SUB-01 through SUB-04)
 export const SUBSCRIPTION_PLANS = {
-  individual: {
-    name: 'Individual Plan',
-    description: 'Estate planning documents for one person',
-    trialDays: 14,
+  will: {
+    name: 'Will Plan',
+    description: 'Last Will & Testament with ongoing updates',
+    trialDays: 30,
     prices: {
-      month: { amount: 2999, label: '$29.99/mo' },
-      year: { amount: 29900, label: '$299/yr' },
+      month: { amount: 299, label: '$2.99/mo' },
+      year: { amount: 1900, label: '$19/yr' },
     },
     documentUpdates: 3,
+    includes: ['will'],
   },
-  couples: {
-    name: 'Couples Plan',
-    description: 'Estate planning documents for you and your spouse',
-    trialDays: 14,
+  trust: {
+    name: 'Trust Plan',
+    description: 'Living Trust with ongoing updates and amendments',
+    trialDays: 30,
     prices: {
-      month: { amount: 4999, label: '$49.99/mo' },
-      year: { amount: 49900, label: '$499/yr' },
+      month: { amount: 499, label: '$4.99/mo' },
+      year: { amount: 3900, label: '$39/yr' },
     },
     documentUpdates: 6,
+    includes: ['trust', 'will', 'poa'],
   },
-  family: {
-    name: 'Family Plan',
-    description: 'Complete estate planning for your entire family',
-    trialDays: 14,
+  'estate-plan': {
+    name: 'Complete Estate Plan',
+    description: 'Full estate planning package with all documents',
+    trialDays: 30,
     prices: {
-      month: { amount: 7999, label: '$79.99/mo' },
-      year: { amount: 79900, label: '$799/yr' },
+      month: { amount: 799, label: '$7.99/mo' },
+      year: { amount: 6900, label: '$69/yr' },
     },
     documentUpdates: 12,
+    includes: ['trust', 'will', 'poa', 'healthcare-directive'],
   },
 } as const
 

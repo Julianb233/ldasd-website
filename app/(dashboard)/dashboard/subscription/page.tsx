@@ -123,7 +123,7 @@ export default async function SubscriptionPage({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <p className="text-sm text-gray-500">Plan</p>
-              <p className="font-medium text-gray-900 capitalize">{subscription.plan_type}</p>
+              <p className="font-medium text-gray-900">{SUBSCRIPTION_PLANS[subscription.plan_type as keyof typeof SUBSCRIPTION_PLANS]?.name || subscription.plan_type}</p>
             </div>
             <div>
               <p className="text-sm text-gray-500">Billing</p>

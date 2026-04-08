@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { SUBSCRIPTION_PLANS } from '@/lib/stripe'
 import type { Order, Document, Subscription } from '@/lib/supabase/types'
 import SuccessToast from '@/components/SuccessToast'
 
@@ -183,7 +184,7 @@ function MembershipCard({ subscription }: { subscription: Subscription | null })
               <CreditCardIcon className="h-6 w-6 text-green-600" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 capitalize">{subscription.plan_type} Membership</h2>
+              <h2 className="text-lg font-semibold text-gray-900">{SUBSCRIPTION_PLANS[subscription.plan_type as keyof typeof SUBSCRIPTION_PLANS]?.name || subscription.plan_type} Membership</h2>
               <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[subscription.status] || 'bg-gray-100 text-gray-800'}`}>
                 {statusLabels[subscription.status] || subscription.status}
               </span>

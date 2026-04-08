@@ -37,7 +37,7 @@ export type Subscription = {
   user_id: string
   stripe_subscription_id: string | null
   stripe_customer_id: string | null
-  plan_type: 'individual' | 'couples' | 'family'
+  plan_type: 'will' | 'trust' | 'estate-plan'
   status: 'trialing' | 'active' | 'past_due' | 'canceled' | 'unpaid' | 'incomplete'
   trial_start: string | null
   trial_end: string | null
