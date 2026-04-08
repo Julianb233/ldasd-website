@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import CouplesToggle from "@/components/CouplesToggle";
 
 export const metadata: Metadata = {
   title: "Complete Estate Plan | Trust, Will, POA & Healthcare Directive | $699",
-  description: "Everything you need for complete protection. Living trust, will, power of attorney, healthcare directive, and more. Best value at $699.",
+  description: "Everything you need for complete protection. Living trust, will, power of attorney, healthcare directive, and more. Best value at $699. Couples plan available for $799.",
 };
 
 export default function EstatePlanPage() {
@@ -24,18 +25,15 @@ export default function EstatePlanPage() {
               <p className="mt-6 text-xl text-white/90">
                 Everything you need for comprehensive protection. Trust, will, powers of attorney, healthcare directives, and lifetime updates.
               </p>
-              <div className="mt-8 flex items-baseline gap-4">
-                <span className="text-5xl font-bold text-secondary">$699</span>
-                <span className="text-white/80">one-time fee</span>
-              </div>
               <p className="mt-4 text-secondary font-semibold bg-white/10 backdrop-blur-sm px-4 py-1 rounded-full inline-block">Save $200+ vs. individual products</p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <Link href="/book" className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-8 py-4 text-lg font-semibold text-white hover:bg-accent transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Get Complete Plan
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
+              <div className="mt-8">
+                <CouplesToggle
+                  productId="estate-plan"
+                  productName="Estate Plan"
+                  individualPrice={699}
+                  couplesPrice={799}
+                  ctaText="Get Complete Plan"
+                />
               </div>
             </div>
             <div className="relative">
@@ -128,12 +126,17 @@ export default function EstatePlanPage() {
           <p className="text-xl text-white/90 mb-10">
             Get every document you need to protect your family and assets. Free lifetime updates included.
           </p>
-          <Link href="/book" className="inline-flex items-center gap-2 rounded-full bg-secondary px-8 py-4 text-lg font-semibold text-white hover:bg-accent transition-all duration-300 shadow-lg hover:shadow-xl">
-            Get Started for $699
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/book?product=estate-plan" className="inline-flex items-center gap-2 rounded-full bg-secondary px-8 py-4 text-lg font-semibold text-white hover:bg-accent transition-all duration-300 shadow-lg hover:shadow-xl">
+              Get Started for $699
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+            <Link href="/book?product=estate-plan&couples=true" className="inline-flex items-center gap-2 rounded-full bg-white/10 px-8 py-4 text-lg font-semibold text-white ring-1 ring-white/20 hover:bg-white/20 transition-all duration-300">
+              Couples Plan $799
+            </Link>
+          </div>
         </div>
       </section>
     </div>

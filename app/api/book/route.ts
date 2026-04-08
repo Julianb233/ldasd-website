@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { isGHLConfigured, sendBookingToGHL } from '@/lib/ghl';
 
 export async function POST(request: NextRequest) {
   try {
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
     let totalPrice = addSpouse ? basePrice + 100 : basePrice;
     if (addAttorneyConsultation) totalPrice += 299;
 
-    // TODO: Integration point for Go High Level
+    // Log submission
     console.log('Booking Submission:', {
       firstName,
       lastName,
@@ -45,6 +46,28 @@ export async function POST(request: NextRequest) {
       estimatedPrice: `$${totalPrice}`,
       timestamp: new Date().toISOString(),
     });
+
+    // CRM-02 + CRM-03: Send to Go High Level with product tags
+    if (isGHLConfigured()) {
+      const { contact, opportunityId } = await sendBookingToGHL({
+        firstName,
+        lastName,
+        email,
+        phone,
+        state,
+        product,
+        addSpouse: addSpouse || false,
+        estimatedPrice: totalPrice,
+      });
+
+      if (contact) {
+        console.log('[GHL] Booking lead created:', contact.id, 'opportunity:', opportunityId);
+      } else {
+        console.warn('[GHL] Failed to create booking lead — form still submitted successfully');
+      }
+    } else {
+      console.log('[GHL] Not configured — skipping CRM sync for booking');
+    }
 
     // Success response
     return NextResponse.json({

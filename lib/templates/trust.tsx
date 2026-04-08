@@ -66,7 +66,10 @@ interface TrustDocumentProps {
   data: TrustData;
 }
 
-export const TrustDocument: React.FC<TrustDocumentProps> = ({ data }) => {
+/**
+ * Trust pages without the Document wrapper — for composition with other pages.
+ */
+export const TrustPages: React.FC<TrustDocumentProps> = ({ data }) => {
   const today = new Date(data.date);
   const day = today.getDate();
   const month = today.toLocaleString('en-US', { month: 'long' });
@@ -77,7 +80,7 @@ export const TrustDocument: React.FC<TrustDocumentProps> = ({ data }) => {
     : data.grantorName;
 
   return (
-    <Document>
+    <>
       {/* Page 1: Cover and Introduction */}
       <Page size="LETTER" style={styles.page}>
         <View style={styles.header}>
@@ -416,8 +419,17 @@ export const TrustDocument: React.FC<TrustDocumentProps> = ({ data }) => {
           `Page ${pageNumber} of ${totalPages}`
         )} fixed />
       </Page>
-    </Document>
+    </>
   );
 };
+
+/**
+ * Complete Trust document wrapped in Document — for standalone rendering.
+ */
+export const TrustDocument: React.FC<TrustDocumentProps> = ({ data }) => (
+  <Document>
+    <TrustPages data={data} />
+  </Document>
+);
 
 export default TrustDocument;

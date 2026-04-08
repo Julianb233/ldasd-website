@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { isGHLConfigured, sendContactFormToGHL } from '@/lib/ghl';
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,8 +23,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Integration point for Go High Level
-    // For now, log to console (visible in Vercel logs)
+    // Log submission (visible in Vercel logs)
     console.log('Contact Form Submission:', {
       firstName,
       lastName,
@@ -33,6 +33,26 @@ export async function POST(request: NextRequest) {
       message,
       timestamp: new Date().toISOString(),
     });
+
+    // CRM-01: Send to Go High Level
+    if (isGHLConfigured()) {
+      const ghlContact = await sendContactFormToGHL({
+        firstName,
+        lastName,
+        email,
+        phone: phone || undefined,
+        subject,
+        message,
+      });
+
+      if (ghlContact) {
+        console.log('[GHL] Contact form lead created:', ghlContact.id);
+      } else {
+        console.warn('[GHL] Failed to create contact form lead — form still submitted successfully');
+      }
+    } else {
+      console.log('[GHL] Not configured — skipping CRM sync for contact form');
+    }
 
     // Success response
     return NextResponse.json({

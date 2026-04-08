@@ -55,7 +55,10 @@ interface GuardianshipDocumentProps {
   data: GuardianshipData;
 }
 
-export const GuardianshipDocument: React.FC<GuardianshipDocumentProps> = ({ data }) => {
+/**
+ * Guardianship pages without the Document wrapper — for composition with other pages.
+ */
+export const GuardianshipPages: React.FC<GuardianshipDocumentProps> = ({ data }) => {
   const today = new Date(data.date);
   const day = today.getDate();
   const month = today.toLocaleString('en-US', { month: 'long' });
@@ -65,7 +68,7 @@ export const GuardianshipDocument: React.FC<GuardianshipDocumentProps> = ({ data
   const isCaliforniaResident = data.parentState === 'California' || data.parentState === 'CA';
 
   return (
-    <Document>
+    <>
       {/* Page 1: Declaration and Nomination */}
       <Page size="LETTER" style={styles.page}>
         <View style={styles.header}>
@@ -385,8 +388,17 @@ export const GuardianshipDocument: React.FC<GuardianshipDocumentProps> = ({ data
           `Page ${pageNumber} of ${totalPages}`
         )} fixed />
       </Page>
-    </Document>
+    </>
   );
 };
+
+/**
+ * Complete Guardianship document wrapped in Document — for standalone rendering.
+ */
+export const GuardianshipDocument: React.FC<GuardianshipDocumentProps> = ({ data }) => (
+  <Document>
+    <GuardianshipPages data={data} />
+  </Document>
+);
 
 export default GuardianshipDocument;

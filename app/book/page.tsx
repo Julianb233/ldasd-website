@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, useRef, useCallback, FormEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 interface FormData {
@@ -103,6 +103,64 @@ export default function BookPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const hasSubmittedRef = useRef(false);
+  const abandonedCartSentRef = useRef(false);
+
+  // CRM-04: Abandoned cart detection
+  // Sends partial form data to GHL when user leaves page without completing checkout
+  const sendAbandonedCart = useCallback(() => {
+    if (hasSubmittedRef.current || abandonedCartSentRef.current) return;
+    if (!formData.email) return; // Need at least email to track
+
+    abandonedCartSentRef.current = true;
+
+    const productPrices: Record<string, number> = {
+      will: 199,
+      trust: 599,
+      "estate-plan": 699,
+    };
+    const basePrice = formData.product ? productPrices[formData.product] || 0 : 0;
+    const estimatedPrice = formData.addSpouse ? basePrice + 100 : basePrice;
+
+    const payload = JSON.stringify({
+      email: formData.email,
+      firstName: formData.firstName || undefined,
+      lastName: formData.lastName || undefined,
+      phone: formData.phone || undefined,
+      product: formData.product || undefined,
+      estimatedPrice: estimatedPrice || undefined,
+    });
+
+    // Use sendBeacon for reliable delivery during page unload
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon("/api/abandoned-cart", payload);
+    } else {
+      // Fallback for older browsers
+      fetch("/api/abandoned-cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+        keepalive: true,
+      }).catch(() => {});
+    }
+  }, [formData]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => sendAbandonedCart();
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        sendAbandonedCart();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [sendAbandonedCart]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -152,6 +210,7 @@ export default function BookPage() {
         throw new Error(result.error || "Failed to submit form");
       }
 
+      hasSubmittedRef.current = true;
       setIsSubmitted(true);
       toast.success("Request submitted successfully!");
     } catch (error) {
