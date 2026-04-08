@@ -2,19 +2,15 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import HeroCarousel from "@/components/HeroCarousel";
+import TrustIndicators from "@/components/TrustIndicators";
+import PressLogos from "@/components/PressLogos";
+import CustomerReviews from "@/components/CustomerReviews";
 
 export const metadata: Metadata = {
   title: "LDASD Estate Planning | Affordable Trusts & Wills for Peace of Mind",
   description: "Protect what matters most with simple, affordable estate planning. Create your living trust, will, or complete estate plan online. Attorney-backed documents starting at $199.",
   keywords: "estate planning, living trust, will, guardianship, estate plan, online trust, affordable estate planning, San Diego",
 };
-
-const stats = [
-  { label: "Families Protected", value: "100K", suffix: "+" },
-  { label: "States Covered", value: "50", suffix: "" },
-  { label: "Customer Satisfaction", value: "4.9", suffix: "/5" },
-  { label: "Starting Price", value: "$199", suffix: "" },
-];
 
 const products = [
   {
@@ -60,27 +56,6 @@ const products = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75" />
       </svg>
     ),
-  },
-];
-
-const testimonials = [
-  {
-    content: "Creating our living trust was so much easier than I expected. LDASD made it simple, affordable, and gave us complete peace of mind about our family's future.",
-    author: "Sarah & Michael T.",
-    role: "Parents of Three",
-    rating: 5,
-  },
-  {
-    content: "After putting it off for years, we finally got our will done through LDASD. Knowing our kids are protected and our guardianship wishes are documented is priceless.",
-    author: "Jennifer K.",
-    role: "Single Mom",
-    rating: 5,
-  },
-  {
-    content: "The complete estate plan was exactly what we needed. Living trust, healthcare directive, power of attorney - all done in one afternoon. Worth every penny.",
-    author: "Robert & Linda M.",
-    role: "Retirees",
-    rating: 5,
   },
 ];
 
@@ -153,18 +128,11 @@ export default function Home() {
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
       </section>
 
-      {/* Trust Indicators */}
-      <section className="relative py-16 bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 text-foreground/40">
-            <span className="text-sm font-medium uppercase tracking-wider">Trusted By</span>
-            <span className="text-lg font-semibold">BBB A+ Rated</span>
-            <span className="text-lg font-semibold">4.9★ Average Rating</span>
-            <span className="text-lg font-semibold">100,000+ Families</span>
-            <span className="text-lg font-semibold">50-State Coverage</span>
-          </div>
-        </div>
-      </section>
+      {/* Trust Indicators - BBB badge, guarantee badge, statistics */}
+      <TrustIndicators />
+
+      {/* Press/Media Logos */}
+      <PressLogos />
 
       {/* Why Estate Planning Section */}
       <section className="relative py-24 sm:py-32 bg-tan overflow-hidden">
@@ -305,60 +273,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials with Glass Morphism */}
-      <section className="relative py-24 sm:py-32 bg-sage overflow-hidden">
-        {/* Background orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -right-20 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[100px]" />
-          <div className="absolute bottom-1/4 -left-20 w-[300px] h-[300px] rounded-full bg-secondary/10 blur-[80px]" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center mb-16">
-            <span className="inline-block text-secondary font-semibold tracking-wider text-sm uppercase mb-4">
-              Real Stories, Real Peace of Mind
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              What Our Families Say
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-foreground/70">
-              Join thousands of families who've protected what matters most.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="relative bg-white/60 backdrop-blur-md rounded-3xl p-8 shadow-glass ring-1 ring-white/50 hover:bg-white/70 hover:shadow-premium transition-all duration-400 transform hover:-translate-y-1"
-              >
-                {/* Stars */}
-                <div className="flex gap-1 mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-
-                <blockquote className="text-foreground text-lg leading-relaxed mb-6">
-                  &ldquo;{testimonial.content}&rdquo;
-                </blockquote>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center ring-2 ring-white/50">
-                    <span className="text-primary font-bold text-lg">{testimonial.author.charAt(0)}</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">{testimonial.author}</p>
-                    <p className="text-sm text-foreground/60">{testimonial.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Customer Reviews - Trustpilot-style with aggregate rating */}
+      <CustomerReviews />
 
       {/* CTA Section with Lighter Gradient */}
       <section className="relative py-24 sm:py-32 bg-background overflow-hidden">
