@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import type { Order, Document } from '@/lib/supabase/types'
+import { SUBSCRIPTION_PLANS } from '@/lib/stripe'
+import type { Order, Document, Subscription } from '@/lib/supabase/types'
 import SuccessToast from '@/components/SuccessToast'
 
 // Icon components
@@ -125,6 +126,96 @@ function formatDocumentType(type: Document['document_type']) {
   return labels[type] || type
 }
 
+function CreditCardIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+    </svg>
+  )
+}
+
+function MembershipCard({ subscription }: { subscription: Subscription | null }) {
+  if (!subscription) {
+    return (
+      <section className="mb-8">
+        <div className="bg-gradient-to-r from-primary/5 to-blue-50 rounded-xl border border-primary/20 p-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="bg-primary/10 p-2 rounded-lg">
+              <CreditCardIcon className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">No Active Subscription</h2>
+              <p className="text-sm text-gray-500">Subscribe to unlock document updates and management features</p>
+            </div>
+          </div>
+          <Link
+            href="/dashboard/subscription"
+            className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
+          >
+            View Plans &amp; Start Free Trial
+          </Link>
+        </div>
+      </section>
+    )
+  }
+
+  const statusColors: Record<string, string> = {
+    trialing: 'bg-blue-100 text-blue-800',
+    active: 'bg-green-100 text-green-800',
+    past_due: 'bg-red-100 text-red-800',
+  }
+
+  const statusLabels: Record<string, string> = {
+    trialing: 'Trial',
+    active: subscription.cancel_at_period_end ? 'Canceling' : 'Active',
+    past_due: 'Past Due',
+  }
+
+  const daysUntilEnd = subscription.current_period_end
+    ? Math.max(0, Math.ceil((new Date(subscription.current_period_end).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+    : null
+
+  return (
+    <section className="mb-8">
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className="bg-green-50 p-2 rounded-lg">
+              <CreditCardIcon className="h-6 w-6 text-green-600" />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">{SUBSCRIPTION_PLANS[subscription.plan_type as keyof typeof SUBSCRIPTION_PLANS]?.name || subscription.plan_type} Membership</h2>
+              <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[subscription.status] || 'bg-gray-100 text-gray-800'}`}>
+                {statusLabels[subscription.status] || subscription.status}
+              </span>
+            </div>
+          </div>
+          <Link
+            href="/dashboard/subscription"
+            className="text-sm text-primary hover:text-primary/80 font-medium"
+          >
+            Manage
+          </Link>
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <p className="text-sm text-gray-500">Billing</p>
+            <p className="font-medium text-gray-900">${(subscription.amount_cents / 100).toFixed(2)}/{subscription.interval === 'month' ? 'mo' : 'yr'}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Doc Updates Left</p>
+            <p className="font-medium text-gray-900">{subscription.document_updates_remaining}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">{subscription.status === 'trialing' ? 'Trial Ends' : 'Renews'}</p>
+            <p className="font-medium text-gray-900">{daysUntilEnd !== null ? `${daysUntilEnd} days` : '—'}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default async function DashboardPage({
   searchParams,
 }: {
@@ -143,6 +234,16 @@ export default async function DashboardPage({
     .eq('user_id', user!.id)
     .order('created_at', { ascending: false })
     .limit(5)
+
+  // Fetch active subscription
+  const { data: subscription } = await supabase
+    .from('subscriptions')
+    .select('*')
+    .eq('user_id', user!.id)
+    .in('status', ['trialing', 'active', 'past_due'])
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single()
 
   // Fetch user's documents
   const { data: documents } = await supabase
@@ -163,6 +264,9 @@ export default async function DashboardPage({
   return (
     <div className="max-w-6xl mx-auto">
       {successMessage && <SuccessToast message={successMessage} />}
+
+      {/* Membership Status */}
+      <MembershipCard subscription={subscription as Subscription | null} />
 
       {/* Quick Actions */}
       <section className="mb-8">
