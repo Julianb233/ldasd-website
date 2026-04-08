@@ -1,10 +1,4 @@
-import Stripe from 'stripe'
-
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not set')
-}
-
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-12-15.clover',
-  typescript: true,
-})
+// Re-export from client.ts for backward compatibility
+export { stripe, getStripe } from './client'
+export { STRIPE_PRICES, DISPLAY_PRICES, PRODUCT_NAMES, formatPrice, getDisplayPrice, hasCouplesPricing } from './products'
+export type { ProductType, PricingTier } from './products'

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { stripe } from '@/lib/stripe'
+import { getStripe } from '@/lib/stripe/client'
 import { PRODUCT_NAMES, formatPrice, type ProductType } from '@/lib/stripe/products'
 
 function CheckIcon({ className }: { className?: string }) {
@@ -36,7 +36,7 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
   let customerEmail = ''
 
   try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId)
+    const session = await getStripe().checkout.sessions.retrieve(sessionId)
     const productType = session.metadata?.product_type as ProductType | undefined
     const tier = session.metadata?.tier
 
