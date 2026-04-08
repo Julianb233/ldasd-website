@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | LDASD Financial Services",
-  description: "Terms of service for LDASD Financial Services website. Read our terms and conditions for using our website and services.",
+  title: "Terms of Service | LDASD Estate Planning",
+  description: "Terms of service for LDASD Estate Planning. Read our terms and conditions for using our website and document preparation services.",
 };
 
 export default function TermsPage() {
@@ -19,7 +19,7 @@ export default function TermsPage() {
             Terms of Service
           </h1>
           <p className="text-xl text-foreground/80">
-            Last updated: December 2024
+            Last updated: April 2026
           </p>
         </div>
       </section>
@@ -31,10 +31,67 @@ export default function TermsPage() {
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-4">Agreement to Terms</h2>
               <p>
-                By accessing or using the website of LDASD Financial Services (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;),
+                By accessing or using the website of LDASD Estate Planning (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;),
                 you agree to be bound by these Terms of Service. If you do not agree to these terms,
-                please do not use our website.
+                please do not use our website or services.
               </p>
+            </div>
+
+            <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                Important: We Are Not a Law Firm
+              </h2>
+              <p className="mb-4">
+                <strong>LDASD Estate Planning is a document preparation service. We are NOT a law firm,
+                and we do NOT provide legal advice.</strong> Our services are limited to providing
+                self-help legal document preparation based on information you provide.
+              </p>
+              <p className="mb-4">
+                The documents we prepare are based entirely on the information and instructions you
+                supply. We do not review your answers for legal sufficiency, draw legal conclusions,
+                provide legal opinions, apply the law to the facts of your situation, or provide
+                recommendations about your legal rights, remedies, defenses, options, or strategies.
+              </p>
+              <p>
+                If you need legal advice for your specific situation, we strongly recommend consulting
+                with a licensed attorney in your state. We offer an optional attorney consultation
+                add-on for this purpose.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-foreground mb-4">Nature of Our Services</h2>
+              <p className="mb-4">LDASD Estate Planning provides:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li><strong>Document preparation services:</strong> We prepare estate planning documents (wills, trusts, powers of attorney, healthcare directives) based on information you provide through our questionnaires.</li>
+                <li><strong>Educational information:</strong> We provide general educational information about estate planning topics. This information is not tailored to your individual circumstances.</li>
+                <li><strong>State-specific forms:</strong> Our documents are formatted to comply with general state requirements, but we cannot guarantee compliance with all local rules or recent legislative changes.</li>
+                <li><strong>Optional attorney referral:</strong> We offer an add-on service to connect you with a licensed estate planning attorney in your state for personalized legal guidance.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-foreground mb-4">No Attorney-Client Relationship</h2>
+              <p>
+                Your use of this website and our document preparation services does NOT create an
+                attorney-client relationship between you and LDASD Estate Planning, its employees,
+                agents, or affiliates. No confidential or privileged relationship is formed by your
+                use of this website. Communications between you and LDASD are not protected by the
+                attorney-client privilege or work product doctrine.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-foreground mb-4">Your Responsibilities</h2>
+              <p className="mb-4">By using our services, you acknowledge and agree that:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>You are responsible for determining whether our document preparation services are appropriate for your needs</li>
+                <li>You are responsible for the accuracy and completeness of all information you provide</li>
+                <li>You understand that improperly executed documents may be legally invalid</li>
+                <li>You are responsible for properly executing (signing, witnessing, notarizing) your documents according to your state&apos;s requirements</li>
+                <li>You should consult with a licensed attorney if you have questions about the legal implications of your estate plan</li>
+                <li>You understand that estate planning laws vary by state and change over time</li>
+              </ul>
             </div>
 
             <div>
@@ -49,22 +106,13 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">No Investment Advice</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">No Guarantee of Legal Validity</h2>
               <p>
-                The content on this website is for informational purposes only and does not constitute
-                investment advice, financial advice, trading advice, or any other sort of advice.
-                You should not treat any of the website&apos;s content as such. We do not recommend that any
-                financial instrument should be bought, sold, or held by you. Nothing on this website
-                should be taken as an offer to buy, sell, or hold any financial product.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">No Client Relationship</h2>
-              <p>
-                Use of this website does not create an investment advisor-client relationship. To become
-                a client of LDASD Financial Services, you must complete our client onboarding process and
-                execute the required advisory agreements.
+                While our documents are designed to comply with general state requirements, we cannot
+                and do not guarantee that any document prepared through our service will be legally
+                valid, enforceable, or sufficient for your particular circumstances. The legal validity
+                of estate planning documents depends on many factors, including proper execution,
+                applicable state laws, and individual circumstances that are beyond our control or knowledge.
               </p>
             </div>
 
@@ -72,7 +120,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-bold text-foreground mb-4">Intellectual Property</h2>
               <p>
                 All content on this website, including text, graphics, logos, images, and software,
-                is the property of LDASD Financial Services or its content suppliers and is protected
+                is the property of LDASD Estate Planning or its content suppliers and is protected
                 by copyright laws. You may not reproduce, distribute, modify, or create derivative
                 works without our prior written consent.
               </p>
@@ -81,19 +129,23 @@ export default function TermsPage() {
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-4">Disclaimer of Warranties</h2>
               <p>
-                This website is provided on an &quot;as is&quot; and &quot;as available&quot; basis without any warranties
-                of any kind. We disclaim all warranties, express or implied, including but not limited
-                to implied warranties of merchantability, fitness for a particular purpose, and
-                non-infringement.
+                This website and our document preparation services are provided on an &quot;as is&quot; and
+                &quot;as available&quot; basis without any warranties of any kind. We disclaim all warranties,
+                express or implied, including but not limited to implied warranties of merchantability,
+                fitness for a particular purpose, and non-infringement. We do not warrant that our
+                services will meet your specific requirements or that any documents will be legally
+                sufficient for your circumstances.
               </p>
             </div>
 
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-4">Limitation of Liability</h2>
               <p>
-                In no event shall LDASD Financial Services, its officers, directors, employees, or agents
+                In no event shall LDASD Estate Planning, its officers, directors, employees, or agents
                 be liable to you for any direct, indirect, incidental, special, consequential, or punitive
-                damages arising out of or related to your use of, or inability to use, this website.
+                damages arising out of or related to your use of, or inability to use, this website or
+                our document preparation services, including but not limited to damages arising from
+                documents that are found to be legally invalid or unenforceable.
               </p>
             </div>
 
@@ -129,7 +181,7 @@ export default function TermsPage() {
                 Questions about these Terms of Service should be sent to:
               </p>
               <div className="mt-4 p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-premium">
-                <p className="font-semibold text-foreground">LDASD Financial Services</p>
+                <p className="font-semibold text-foreground">LDASD Estate Planning</p>
                 <p>12544 High Bluff Drive, Suite 200</p>
                 <p>San Diego, California 92130</p>
                 <p className="mt-2">Phone: (858) 750-6206</p>

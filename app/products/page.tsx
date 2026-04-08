@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import LegalDisclaimer from "@/components/LegalDisclaimer";
 
 export const metadata: Metadata = {
   title: "Estate Planning Products | Trusts, Wills & Complete Plans",
@@ -140,6 +141,7 @@ const comparison = [
 export default function ProductsPage() {
   return (
     <div className="bg-background">
+      <LegalDisclaimer />
       {/* Hero */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary to-primary-light overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
