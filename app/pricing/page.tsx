@@ -187,6 +187,54 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* Bundle Callout */}
+      <section className="py-16 bg-sage">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <div className="rounded-3xl bg-white p-8 shadow-premium ring-1 ring-secondary/20">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <span className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary mb-4">
+                  Save Up to 18%
+                </span>
+                <h2 className="text-3xl font-bold text-foreground mb-3">
+                  Planning with Your Partner?
+                </h2>
+                <p className="text-foreground/70 mb-6">
+                  Our couple and family bundles include complete estate plans for both partners at a discounted price. Save up to $298 compared to buying individually.
+                </p>
+                <Link
+                  href="/pricing/bundles"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary-dark transition-all duration-300 shadow-md"
+                >
+                  View Bundle Pricing
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { name: "Essential Couple", price: "$349", save: "$49" },
+                  { name: "Trust Couple", price: "$999", save: "$199" },
+                  { name: "Complete Family", price: "$1,199", save: "$199" },
+                  { name: "Ultimate Family", price: "$1,399", save: "$298" },
+                ].map((b) => (
+                  <div key={b.name} className="flex items-center justify-between p-3 rounded-xl bg-sage/50">
+                    <span className="text-sm font-medium text-foreground">{b.name}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm font-bold text-secondary">{b.price}</span>
+                      <span className="text-xs text-primary font-semibold bg-primary/10 px-2 py-0.5 rounded-full">
+                        Save {b.save}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-24 bg-sky">
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <div className="text-center mb-12">
