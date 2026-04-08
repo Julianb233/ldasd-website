@@ -1,13 +1,26 @@
 import 'server-only'
 import Stripe from 'stripe'
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  console.warn('STRIPE_SECRET_KEY is not set — Stripe features will not work')
+let _stripe: Stripe | null = null
+
+export function getStripe(): Stripe {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is not set — Stripe features require this environment variable')
+  }
+  if (!_stripe) {
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-12-15.clover',
+      typescript: true,
+    })
+  }
+  return _stripe
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-12-15.clover',
-  typescript: true,
+// Re-export for backwards compatibility — lazy getter
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop) {
+    return (getStripe() as Record<string | symbol, unknown>)[prop]
+  },
 })
 
 // Subscription plan configuration
