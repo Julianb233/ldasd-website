@@ -14,6 +14,8 @@ const navigation = [
       { name: "Will", href: "/products/will" },
       { name: "Guardianship", href: "/products/guardianship" },
       { name: "Estate Plan", href: "/products/estate-plan" },
+      { name: "Attorney Consultation", href: "/products/attorney-consultation" },
+      { name: "Find Your Plan", href: "/find-your-plan" },
     ],
   },
   { name: "Pricing", href: "/pricing" },
