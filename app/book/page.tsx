@@ -11,6 +11,7 @@ interface FormData {
   state: string;
   product: string;
   addSpouse: boolean;
+  addAttorneyConsultation: boolean;
 }
 
 const products = [
@@ -98,6 +99,7 @@ export default function BookPage() {
     state: "",
     product: "",
     addSpouse: false,
+    addAttorneyConsultation: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -121,7 +123,10 @@ export default function BookPage() {
   const getTotalPrice = () => {
     const product = getSelectedProduct();
     if (!product) return 0;
-    return formData.addSpouse ? product.price + 100 : product.price;
+    let total = product.price;
+    if (formData.addSpouse) total += 100;
+    if (formData.addAttorneyConsultation) total += 299;
+    return total;
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -268,6 +273,7 @@ export default function BookPage() {
                         state: "",
                         product: "",
                         addSpouse: false,
+                        addAttorneyConsultation: false,
                       });
                     }}
                     className="text-secondary font-semibold hover:underline"
@@ -411,6 +417,22 @@ export default function BookPage() {
                       </label>
                     </div>
 
+                    <div className="flex items-start gap-3 p-4 border-2 border-secondary/20 rounded-lg bg-secondary/5">
+                      <input
+                        type="checkbox"
+                        id="addAttorneyConsultation"
+                        name="addAttorneyConsultation"
+                        checked={formData.addAttorneyConsultation}
+                        onChange={handleChange}
+                        className="mt-1 accent-secondary"
+                      />
+                      <label htmlFor="addAttorneyConsultation" className="text-sm text-foreground/70">
+                        <span className="font-semibold text-foreground block">Add Attorney Consultation (+$299)</span>
+                        60-minute 1-on-1 consultation with a licensed estate planning attorney in your state.
+                        Includes document review, personalized recommendations, and follow-up support.
+                      </label>
+                    </div>
+
                     {formData.product && (
                       <div className="bg-secondary/5 rounded-lg p-4">
                         <div className="flex justify-between items-center">
@@ -420,6 +442,11 @@ export default function BookPage() {
                         {formData.addSpouse && (
                           <p className="text-sm text-foreground/60 mt-1">
                             Includes spouse/partner (+$100)
+                          </p>
+                        )}
+                        {formData.addAttorneyConsultation && (
+                          <p className="text-sm text-foreground/60 mt-1">
+                            Includes attorney consultation (+$299)
                           </p>
                         )}
                       </div>
