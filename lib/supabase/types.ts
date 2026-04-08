@@ -47,6 +47,25 @@ export type DocumentInsert = Omit<Document, 'id' | 'generated_at' | 'updated_at'
   version?: number
 }
 
+export type WizardSessionRow = {
+  id: string
+  user_id: string
+  wizard_id: string
+  current_step_index: number
+  values: Record<string, unknown>
+  completed_steps: string[]
+  started_at: string
+  last_saved_at: string
+  created_at: string
+  updated_at: string
+}
+
+export type WizardSessionInsert = Omit<WizardSessionRow, 'id' | 'created_at' | 'updated_at'> & {
+  id?: string
+}
+
+export type WizardSessionUpdate = Partial<Omit<WizardSessionRow, 'id' | 'user_id' | 'created_at'>>
+
 // Update types (all fields optional except id)
 export type ProfileUpdate = Partial<Omit<Profile, 'id' | 'created_at'>>
 export type OrderUpdate = Partial<Omit<Order, 'id' | 'user_id' | 'created_at'>>
@@ -70,6 +89,11 @@ export type Database = {
         Row: Document
         Insert: DocumentInsert
         Update: DocumentUpdate
+      }
+      wizard_sessions: {
+        Row: WizardSessionRow
+        Insert: WizardSessionInsert
+        Update: WizardSessionUpdate
       }
     }
   }
